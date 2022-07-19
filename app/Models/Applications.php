@@ -24,6 +24,9 @@ class Applications extends Authenticatable
         'address',
         'classification',
         'assessedValue',
+        'coordinates',
+        'image',
+        'status',
     ];
 
     

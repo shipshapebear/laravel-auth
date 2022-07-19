@@ -24,6 +24,7 @@ class Property extends Authenticatable
         'address',
         'classification',
         'assessedValue',
+        'coordinates,'
     ];
 
     

@@ -22,6 +22,8 @@ class PropertyFactory extends Factory
                 'address' => $this->faker->address(),
                 'classification' => $this->faker->randomElement(['A', 'B', 'C', 'D', 'E']),
                 'assessedValue' => $this->faker->randomFloat(2, 100, 10000),
+                'coordinates' => $this->faker->randomNumber(5),
+
             ];
         
     }

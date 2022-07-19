@@ -14,13 +14,14 @@ class CreatePropertiesTable extends Migration
     public function up()
     {
         Schema::create('properties', function (Blueprint $table) {
-         
             $table->id();
-            $table->string('ownerId');
+            $table->string('tdId')->nullable();
+            $table->string('ownerId')->nullable();
             $table->string('name');
             $table->string('address');
             $table->string('classification');
-            $table->decimal('assessedValue', 10, 2);
+            $table->integer('assessedValue');
+            $table->string('coordinates')->nullable();
             $table->timestamps();
 
         });

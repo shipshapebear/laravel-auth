@@ -28,7 +28,7 @@ class PassportAuthController extends Controller
     public function register(Request $request)
     {
         $validator=Validator::make($request->all(), [
-            'name' => 'required|min:4|max:255',
+            'name' => 'required|min:8|max:255',
             'email' => 'required|email',
             'password' => 'required|min:6',
             'c_password' => 'required|same:password',
@@ -54,6 +54,35 @@ class PassportAuthController extends Controller
   
         return response()->json(['token' => $token], 200);
     }
+    public function signup(Request $request)
+    {
+        $validator=Validator::make($request->all(), [
+            'name' => 'required|min:8|max:255',
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+            'c_password' => 'required|same:password',
+            'role' => 'required',
+        ]);
+        
+        //check if validation fails
+       
+        //check if email already exists
+        if ($user=User::where('email', $request->email)->first()) {
+            return response()->json(['error'=>'Email is already taken.'], 400);
+        } 
+  
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'role' => 'taxpayer',
+            'status' => 'active',
+        ]);
+  
+        $token = $user->createToken('Laravel9PassportAuth')->accessToken;
+  
+        return response()->json(['token' => $token], 200);
+    }
   
     /**
      * Login Req
@@ -66,20 +95,26 @@ class PassportAuthController extends Controller
         ]);
 
         $login = $request->only('email', 'password');
-
+        
         if (!Auth::attempt($login)) {
             return response()->json(['message' => 'Invalid username or password.'], 401);
+            
         }
+        
         /**
          * @var User $user
          */
         $user = Auth::user();
         $token = $user->createToken($user->name);
-
+        //check if active
+        if ($user->status != 'active') {
+            return response()->json(['message' => 'User is not active.'], 401);
+        }
         return response([
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
+            'role' => $user->role,
             'created_at' => $user->created_at,
             'updated_at' => $user->updated_at,
             'token' => $token->accessToken,
@@ -295,4 +330,8 @@ public function checkout()
     return redirect()->to($itemCheckout->url);
 }
   
+//get all user
+
+
+
 }

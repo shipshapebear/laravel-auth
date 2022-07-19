@@ -17,8 +17,7 @@ class AddInfo extends Migration
         Schema::table('users', function (Blueprint $table) {
             //
             Schema::table('users', function($table) {
-                $table->string('status');
-                $table->string('role');
+                
             });
         });
     }

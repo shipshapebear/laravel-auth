@@ -14,15 +14,16 @@ class Applications extends Migration
     public function up()
     {
         Schema::create('applications', function (Blueprint $table) {
-         
             $table->id();
-            $table->string('tdId');
+            $table->string('tdId')->nullable();
             $table->string('ownerId')->nullable();
             $table->string('name');
             $table->string('address');
             $table->string('classification');
-            $table->decimal('assessedValue', 10, 2);
+            $table->integer('assessedValue');
+            $table->string('coordinates')->nullable();
             $table->string('status');
+            $table->string('image');
             $table->timestamps();
 
         });
