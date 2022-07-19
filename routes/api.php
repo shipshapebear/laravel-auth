@@ -21,7 +21,7 @@ use App\Http\Controllers\API\ApplicationsController;
 Route::post('forgot-password', [PassportAuthController::class, 'forgotPassword']);
 Route::post('reset-password', [PassportAuthController::class, 'resetPassword']);
 Route::post('register', [PassportAuthController::class, 'register']);
-Route::post('login', [PassportAuthController::class, 'login']);
+Route::post('login', [PassportAuthController::class, 'index']);
 Route::put('update-status/{id}', [PassportAuthController::class, 'updateUserStatus']);
 Route::put('update-role/{id}', [PassportAuthController::class, 'updateUserRole']);
 //updateUserAccount with data request
