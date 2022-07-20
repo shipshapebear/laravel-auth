@@ -180,6 +180,7 @@ class PassportAuthController extends Controller
         });
     
         return response()->json('Successfully logged out');
+        return redirect()->to(url('/login'));
     }
 
     //get all users

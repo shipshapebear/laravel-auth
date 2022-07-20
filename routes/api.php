@@ -20,8 +20,8 @@ use App\Http\Controllers\API\ApplicationsController;
 
 Route::post('forgot-password', [PassportAuthController::class, 'forgotPassword']);
 Route::post('reset-password', [PassportAuthController::class, 'resetPassword']);
-Route::post('register', [PassportAuthController::class, 'register']);
-Route::post('login', [PassportAuthController::class, 'index']);
+
+Route::post('login', [PassportAuthController::class, 'login']);
 Route::put('update-status/{id}', [PassportAuthController::class, 'updateUserStatus']);
 Route::put('update-role/{id}', [PassportAuthController::class, 'updateUserRole']);
 //updateUserAccount with data request
@@ -33,19 +33,24 @@ Route::get('checkout', [PassportAuthController::class, 'checkout']);
 Route::get('properties', [PassportAuthController::class, 'getProperties']);
 
 
-Route::post('apply', [ApplicationsController::class, 'apply']);
+Route::post('register', [PassportAuthController::class, 'register']);
 
 
-
-//sign-up as taxpayer 
-
+//admin paths
 Route::post('sign-up', [PassportAuthController::class, 'signup']);
 Route::middleware('auth:api')->group(function () {
     Route::get('get-user', [PassportAuthController::class, 'userInfo']);
     Route::get('logout', [PassportAuthController::class, 'logout']);
     Route::get('accounts', [PassportAuthController::class, 'getUsers']);
-    Route::delete('delete/{id}', [PassportAuthController::class, 'deleteUser']);
+    Route::delete('delete-account/{id}', [PassportAuthController::class, 'deleteUser']);
     Route::put('update-owner/{id}', [PassportAuthController::class, 'updateOwner']);
     Route::get('properties', [PassportAuthController::class, 'getUserProperties']);
     Route::get('property/{id}', [PassportAuthController::class, 'getProperty']);
+    Route::get('applications', [ApplicationsController::class, 'getApplications']);
+});
+
+//taxpayer paths
+Route::middleware('auth:api')->group(function () {
+ 
+    Route::post('apply', [ApplicationsController::class, 'apply']);
 });

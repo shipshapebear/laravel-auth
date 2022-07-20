@@ -52,4 +52,10 @@ class ApplicationsController extends Controller
   
         return response()->json(['message' => 'Your application sent succesfully.'], 200);
     }
+
+    public function getApplications()
+    {
+        $applications = Applications::all();
+        return response()->json($applications);
+    }
 }
