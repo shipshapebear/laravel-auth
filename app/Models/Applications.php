@@ -19,7 +19,7 @@ class Applications extends Authenticatable
      */
     protected $fillable = [
         'tdId',
-        'ownerId',
+        'applicantId',
         'name',
         'address',
         'classification',

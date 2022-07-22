@@ -18,7 +18,7 @@ class ApplicationsController extends Controller
         $validator=Validator::make($request->all(), [
 
             'tdId' => 'required',
-            'ownerId' => 'required',
+            'applicantId' => 'required',
             'name' => 'required',
             'address' => 'required',
             'classification' => 'required',
@@ -34,12 +34,12 @@ class ApplicationsController extends Controller
        
         $name = $request->file('image')->getClientOriginalName();
  
-        $path = $request->file('image')->store('public/storage');
+        $path = $request->file('image')->store('public/images');
 
 
         $applications = Applications::create([
             'tdId' => $request->tdId,
-            'ownerId' => $request->ownerId,
+            'applicantId' => $request->applicantId,
             'name' => $request->name,
             'address' => $request->address,
             'classification' => $request->classification,
@@ -55,7 +55,28 @@ class ApplicationsController extends Controller
 
     public function getApplications()
     {
+        //$applications = Applications::where('status', 'pending')->get();
         $applications = Applications::all();
         return response()->json($applications);
     }
+
+    public function getApplication($id)
+    {
+        $application = Applications::find($id);
+        return response()->json($application);
+    }
+
+    public function approveApplication($id, Request $request)
+    {
+        $property = Property::find($id);
+        //set applicantId to userId
+        //$application = Applications::find($request->id);
+        //$application->status = 'approved';
+        //$application->save();
+
+        $property->ownerId = $request->applicantId;
+        $property->save();
+        return response()->json(['message' => 'Property owner updated successfully.']);
+    }
+
 }

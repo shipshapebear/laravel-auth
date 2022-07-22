@@ -16,7 +16,7 @@ class Applications extends Migration
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
             $table->string('tdId')->nullable();
-            $table->string('ownerId')->nullable();
+            $table->string('applicantId')->nullable();
             $table->string('name');
             $table->string('address');
             $table->string('classification');
