@@ -44,10 +44,18 @@ Route::middleware('auth:api')->group(function () {
     Route::get('accounts', [PassportAuthController::class, 'getUsers']);
     Route::delete('delete-account/{id}', [PassportAuthController::class, 'deleteUser']);
     Route::put('approve-application/{id}', [ApplicationsController::class, 'approveApplication']);
-    Route::get('properties', [PassportAuthController::class, 'getUserProperties']);
-    Route::get('property/{id}', [PassportAuthController::class, 'getProperty']);
+  
     Route::get('applications', [ApplicationsController::class, 'getApplications']);
     Route::get('application/{id}', [ApplicationsController::class, 'getApplication']);
+
+
+
+
+    //property APIs
+    Route::get('properties', [PassportAuthController::class, 'getUserProperties']);
+    Route::get('my-property/{id}', [PassportAuthController::class, 'getUserProperties']);
+
+
 });
 
 //taxpayer paths

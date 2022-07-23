@@ -70,10 +70,12 @@ class ApplicationsController extends Controller
     {
         $property = Property::find($id);
         //set applicantId to userId
-        //$application = Applications::find($request->id);
-        //$application->status = 'approved';
-        //$application->save();
+        $application = Applications::find($request->id);
+        $application->status = 'approved';
+        $application->save();
 
+
+        $property->coordinates = $request->coordinates;
         $property->ownerId = $request->applicantId;
         $property->save();
         return response()->json(['message' => 'Property owner updated successfully.']);
