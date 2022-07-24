@@ -75,13 +75,13 @@ class ApplicationsController extends Controller
         $application->save();
 
         //set property the id of the applicantid/owner id into the property
-        if($application->status == 'approved') {
+        $property = Property::find($id);
             $property->coordinates = $request->coordinates;
             $property->ownerId = $request->applicantId;
             $property->save();
-        }
+        
        
-        $property = Property::find($id);
+      
         return response()->json([
             'id' => $application->id,
             'status' => $application->status,
