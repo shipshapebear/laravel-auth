@@ -74,15 +74,17 @@ class ApplicationsController extends Controller
         $application->status = 'approved';
         $application->save();
         
-
-        $property->coordinates = $request->coordinates;
-        $property->ownerId = $request->applicantId;
-        $property->save();
+        if($application->status == 'approved') {
+            $property->coordinates = $request->coordinates;
+            $property->ownerId = $request->applicantId;
+            $property->save();
+        }
+       
 
         return response()->json([
             'id' => $application->id,
             'status' => $application->status,
-            'message' => 'Property successfull approved.',
+            'message' => 'Property successfully approved.',
         ], 200);
        
     }
