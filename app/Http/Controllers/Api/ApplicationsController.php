@@ -68,19 +68,20 @@ class ApplicationsController extends Controller
 
     public function approveApplication($id, Request $request)
     {
-        $property = Property::find($id);
-        //set applicantId to userId
+       
+        
         $application = Applications::find($request->id);
         $application->status = 'approved';
         $application->save();
-        
+
+        //set property the id of the applicantid/owner id into the property
         if($application->status == 'approved') {
             $property->coordinates = $request->coordinates;
             $property->ownerId = $request->applicantId;
             $property->save();
         }
        
-
+        $property = Property::find($id);
         return response()->json([
             'id' => $application->id,
             'status' => $application->status,
@@ -88,17 +89,33 @@ class ApplicationsController extends Controller
         ], 200);
        
     }
+    public function rejectApplication($id, Request $request)
+    {
+        //set applicantId to userId
+        $application = Applications::find($request->id);
+        $application->status = 'rejected';
+        $application->save();
+
+        return response()->json([
+            'id' => $application->id,
+            'status' => $application->status,
+            'message' => 'Property successfully rejected.',
+        ], 200);
+       
+    }
+
+
     public function revertApplication($id, Request $request)
     {
-        $property = Property::find($id);
-        //set applicantId to userId
+        
+      
         $application = Applications::find($request->id);
         $application->status = 'pending';
         $application->save();
 
-
-        $property->coordinates = $request->coordinates;
-        $property->ownerId = $request->applicantId;
+        $property = Property::find($id);
+        $property->coordinates = null;
+        $property->ownerId = null;
         $property->save();
 
         return response()->json([

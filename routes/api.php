@@ -48,6 +48,7 @@ Route::middleware('auth:api')->group(function () {
     //Applications APIs
     Route::put('approve-application/{id}', [ApplicationsController::class, 'approveApplication']);
     Route::put('revert-application/{id}', [ApplicationsController::class, 'revertApplication']);
+    Route::put('reject-application/{id}', [ApplicationsController::class, 'rejectApplication']);
     Route::get('applications', [ApplicationsController::class, 'getApplications']);
     Route::get('application/{id}', [ApplicationsController::class, 'getApplication']);
 
