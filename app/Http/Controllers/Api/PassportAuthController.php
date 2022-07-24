@@ -52,7 +52,15 @@ class PassportAuthController extends Controller
   
         $token = $user->createToken('Laravel9PassportAuth')->accessToken;
   
-        return response()->json(['token' => $token], 200);
+        return response()->json(
+            [
+                'id' => $user->id,
+                'email' => $user->email,
+                'name' => $user->name,
+                'role' => $user->role,
+                'status' => $user->status
+            
+            ], 200);
     }
     public function signup(Request $request)
     {
@@ -204,7 +212,10 @@ class PassportAuthController extends Controller
         $user = User::find($id);
         $user->status = $user->status == 'active' ? 'inactive' : 'active';
         $user->save();
-        return response()->json(['message' => 'User status updated successfully.']);
+        return response()->json([
+            'message' => 'Account status updated successfully',
+            'status' => $user->status,
+        ]);
     }
 
     //update user role
@@ -224,7 +235,11 @@ class PassportAuthController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->save();
-        return response()->json(['message' => 'User account updated successfully.']);
+        return response()->json([
+            'message' => 'User account updated successfully.',
+            'email' => $user->email,
+            'name' => $user->name,
+        ]);
     }
 
     

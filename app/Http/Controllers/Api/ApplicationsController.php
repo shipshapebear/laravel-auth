@@ -73,12 +73,38 @@ class ApplicationsController extends Controller
         $application = Applications::find($request->id);
         $application->status = 'approved';
         $application->save();
+        
+
+        $property->coordinates = $request->coordinates;
+        $property->ownerId = $request->applicantId;
+        $property->save();
+
+        return response()->json([
+            'id' => $application->id,
+            'status' => $application->status,
+            'message' => 'Property successfull approved.',
+        ], 200);
+       
+    }
+    public function revertApplication($id, Request $request)
+    {
+        $property = Property::find($id);
+        //set applicantId to userId
+        $application = Applications::find($request->id);
+        $application->status = 'pending';
+        $application->save();
 
 
         $property->coordinates = $request->coordinates;
         $property->ownerId = $request->applicantId;
         $property->save();
-        return response()->json(['message' => 'Property owner updated successfully.']);
+
+        return response()->json([
+            'id' => $application->id,
+            'status' => $application->status,
+            'message' => 'Property successfull approved.',
+        ], 200);
+       
     }
 
 }

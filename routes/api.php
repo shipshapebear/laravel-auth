@@ -43,8 +43,11 @@ Route::middleware('auth:api')->group(function () {
     Route::get('logout', [PassportAuthController::class, 'logout']);
     Route::get('accounts', [PassportAuthController::class, 'getUsers']);
     Route::delete('delete-account/{id}', [PassportAuthController::class, 'deleteUser']);
+
+
+    //Applications APIs
     Route::put('approve-application/{id}', [ApplicationsController::class, 'approveApplication']);
-  
+    Route::put('revert-application/{id}', [ApplicationsController::class, 'revertApplication']);
     Route::get('applications', [ApplicationsController::class, 'getApplications']);
     Route::get('application/{id}', [ApplicationsController::class, 'getApplication']);
 
