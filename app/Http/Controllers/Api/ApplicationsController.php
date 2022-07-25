@@ -68,25 +68,37 @@ class ApplicationsController extends Controller
 
     public function approveApplication($id, Request $request)
     {
-       
-        
-        $application = Applications::find($request->id);
-        $application->status = 'approved';
-        $application->save();
+     
+    //for the mean time I will set id as the tdId
+    //once we have the sample record of properties I will set the tdId as the main Id    
 
-        //set property the id of the applicantid/owner id into the property
-        $property = Property::find($id);
-            $property->coordinates = $request->coordinates;
-            $property->ownerId = $request->applicantId;
-            $property->save();
-        
-       
+    $property = Property::where('tdId', '=', $id)->first();
+if ($property == null) {
+    return response()->json([
+        'message' => "This property doesn't exist.",
+        'status' => "pending",
+    ], 404);
+} else {
+    $property->coordinates = $request->coordinates;
+    $property->ownerId = $request->applicantId;
+    $property->save();
+
+    $application = Applications::find($request->id);
+    $application->status = 'approved';
+    $application->save();
+
+    return response()->json([
+        'id' => $application->id,
+        'status' => $application->status,
+        'message' => 'Property successfully approved.',
+    ], 200);
+}
+     
       
-        return response()->json([
-            'id' => $application->id,
-            'status' => $application->status,
-            'message' => 'Property successfully approved.',
-        ], 200);
+
+
+        
+      
        
     }
     public function rejectApplication($id, Request $request)
@@ -113,15 +125,24 @@ class ApplicationsController extends Controller
         $application->status = 'pending';
         $application->save();
 
-        $property = Property::find($id);
-        $property->coordinates = null;
-        $property->ownerId = null;
-        $property->save();
+        if($request->status == 'approved') {
+            $property = Property::where('tdId', '=', $id)->first();
+            $property->coordinates = null;
+            $property->ownerId = null;
+            $property->save();
+
+            return response()->json([
+                'id' => $application->id,
+                'status' => $application->status,
+                'message' => 'Property successfully reverted.',
+            ], 200);
+        }
+       
 
         return response()->json([
             'id' => $application->id,
             'status' => $application->status,
-            'message' => 'Property successfull approved.',
+            'message' => 'Property successfully reverted.',
         ], 200);
        
     }

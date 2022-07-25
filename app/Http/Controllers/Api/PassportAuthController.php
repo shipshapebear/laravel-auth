@@ -33,6 +33,7 @@ class PassportAuthController extends Controller
             'password' => 'required|min:6',
             'c_password' => 'required|same:password',
             'role' => 'required',
+            
         ]);
         
         //check if validation fails
@@ -58,8 +59,8 @@ class PassportAuthController extends Controller
                 'email' => $user->email,
                 'name' => $user->name,
                 'role' => $user->role,
-                'status' => $user->status
-            
+                'status' => $user->status,
+                'token' => $token
             ], 200);
     }
     public function signup(Request $request)
@@ -89,7 +90,15 @@ class PassportAuthController extends Controller
   
         $token = $user->createToken('Laravel9PassportAuth')->accessToken;
   
-        return response()->json(['token' => $token], 200);
+        return response()->json(
+            [
+                'id' => $user->id,
+                'email' => $user->email,
+                'name' => $user->name,
+                'role' => $user->role,
+                'status' => $user->status,
+                'token' => $token
+            ], 200);
     }
   
     /**
