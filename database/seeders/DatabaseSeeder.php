@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             ]);
             
             DB::table('properties')->insert([
+                'tdId' => $faker->unique()->randomFloat(0, 100, 10000),
                 'name' => $faker->name,
                 'address' => $faker->address,
                 'classification' => $faker->randomElement(['A', 'B', 'C', 'D', 'E']),

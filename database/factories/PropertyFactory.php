@@ -16,8 +16,8 @@ class PropertyFactory extends Factory
      
             //
             return [
-                'tdId' => $this->faker->randomNumber(5),
-                'ownerId' => $this->faker->randomNumber(5),
+                'tdId' =>  $this->faker->randomFloat(2, 100, 10000),
+                'ownerId' => $this->faker->randomDigit(5),
                 'name' => $this->faker->name(),
                 'address' => $this->faker->address(),
                 'classification' => $this->faker->randomElement(['A', 'B', 'C', 'D', 'E']),

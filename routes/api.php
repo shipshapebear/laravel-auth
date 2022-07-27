@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\PassportAuthController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\PropertyController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\API\ApplicationsController;
  
@@ -29,8 +30,7 @@ Route::put('update-account/{id}', [PassportAuthController::class, 'updateUserAcc
 Route::put('remove-owner/{id}', [PassportAuthController::class, 'removeOwner']);
 
 Route::get('checkout', [PassportAuthController::class, 'checkout']);
-//getall properties 
-Route::get('properties', [PassportAuthController::class, 'getProperties']);
+
 
 
 Route::post('register', [PassportAuthController::class, 'register']);
@@ -58,11 +58,13 @@ Route::middleware('auth:api')->group(function () {
     //property APIs
     Route::get('properties', [PassportAuthController::class, 'getUserProperties']);
     Route::get('my-property/{id}', [PassportAuthController::class, 'getUserProperties']);
-
-
+    Route::get('properties', [PropertyController::class, 'getProperties']);
+    Route::delete('delete-property/{id}', [PropertyController::class, 'deleteProperty']);
+    Route::post('add-property', [PropertyController::class, 'addProperty']);
+    
 });
 
-//taxpayer paths
+//taxpayer APIs
 
 Route::middleware('auth:api')->group(function () {
     Route::post('apply', [ApplicationsController::class, 'apply']);

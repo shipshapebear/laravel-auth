@@ -264,13 +264,7 @@ class PassportAuthController extends Controller
     
     }
     
-    //get all properties
-    public function getProperties()
-    {
-        $properties = Property::all();
-        return response()->json($properties);
-    }
-
+   
     //get all properties of a user
     public function getUserProperties($id)
     {
