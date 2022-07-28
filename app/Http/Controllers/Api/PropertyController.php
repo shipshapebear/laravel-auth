@@ -24,6 +24,12 @@ class PropertyController extends Controller
          $properties = Property::all();
          return response()->json($properties);
      }
+     //get all properties
+     public function getPropertiesWithCoordinates()
+     {
+         $properties = Property::whereNotNull('coordinates')->get();
+         return response()->json($properties);
+     }
  //delete user
  public function deleteProperty($id)
  {

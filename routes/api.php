@@ -61,6 +61,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('properties', [PropertyController::class, 'getProperties']);
     Route::delete('delete-property/{id}', [PropertyController::class, 'deleteProperty']);
     Route::post('add-property', [PropertyController::class, 'addProperty']);
+    Route::get('geomap', [PropertyController::class, 'getPropertiesWithCoordinates']);
     
 });
 
