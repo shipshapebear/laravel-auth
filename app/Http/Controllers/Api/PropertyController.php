@@ -37,5 +37,9 @@ class PropertyController extends Controller
      $property->delete();
      return response()->json(['message' => 'Property deleted successfully.']);
  }
+ public function getDataPointsInfo(Request $request) {
+    $properties = Property::where('coordinates' == $request->location)->get();
+         return response()->json($properties);
+ }
 
 }

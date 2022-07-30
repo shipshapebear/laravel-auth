@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\PassportAuthController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\PropertyController;
+use App\Http\Controllers\API\PaymentController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\API\ApplicationsController;
  
@@ -62,6 +63,14 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('delete-property/{id}', [PropertyController::class, 'deleteProperty']);
     Route::post('add-property', [PropertyController::class, 'addProperty']);
     Route::get('geomap', [PropertyController::class, 'getPropertiesWithCoordinates']);
+    Route::post('getDatapoints-info', [PropertyController::class, 'getDataPointsInfo']);
+
+    
+
+    //payment APIs
+    Route::get('user-transactions/{id}', [PaymentController::class, 'getUserPayment']);
+    Route::get('property-transactions/{id}', [PaymentController::class, 'getPropertyPayment']);
+    Route::get('latest-transactions/{id}', [PaymentController::class, 'getLatestPayment']);
     
 });
 

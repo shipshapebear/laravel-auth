@@ -36,6 +36,19 @@ class DatabaseSeeder extends Seeder
                 'classification' => $faker->randomElement(['A', 'B', 'C', 'D', 'E']),
                 'assessedValue' => $faker->randomFloat(2, 100, 10000),
             ]);
+
+            DB::table('payments')->insert([
+                'transaction_id' => $faker->unique()->randomFloat(0, 200, 20000),
+                'amount' => $faker->randomFloat(0, 100, 200),
+                'payment_for' => 'RPT',
+                'payment_method' => 'Gcash',
+                'payment_status' => $faker->randomElement(['pending', 'success', 'error']),
+                'date_of_payment' => $faker->dateTime(),
+                'tdId' => '2901',
+                'ownerId' => '203',
+            ]);
+
+
         }
 
     }
