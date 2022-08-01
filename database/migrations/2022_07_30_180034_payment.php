@@ -16,12 +16,14 @@ class Payment extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id('transaction_id');
             $table->string('tdId');
+            $table->string('name');
             $table->string('ownerId');
             $table->string('payment_for');
             $table->string('payment_method');
             $table->string('payment_status');
             $table->integer('amount');
             $table->date('date_of_payment');
+            
             $table->timestamps();
 
         });

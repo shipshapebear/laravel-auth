@@ -12,6 +12,11 @@ use Validator;
 
 class PaymentController extends Controller
 {
+
+    public function getAllTransactions(){
+        $transactions = Payment::all();
+        return response()->json($transactions);
+    }
     public function getPropertyPayment($id){
         $payment = Payment::where('tdId', $id)->get();
         return response()->json($payment);
@@ -22,7 +27,12 @@ class PaymentController extends Controller
     }
 
     public function getLatestPayment($id) {
-        $latestPayment = Payment::where('tdId', $id)->orderBy('date_of_payment','DESC')->first();
+        $latestPayment = Payment::where('tdId', $id)->where('payment_status', 'success')->orderBy('date_of_payment','DESC')->first();
+        return response()->json($latestPayment);
+    }
+
+    public function getAllLatestPayments($id) {
+        $latestPayment = Payment::where('ownerId', $id)->orderBy('date_of_payment', 'DESC')->first();
         return response()->json($latestPayment);
     }
 }

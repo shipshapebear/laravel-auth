@@ -68,9 +68,12 @@ Route::middleware('auth:api')->group(function () {
     
 
     //payment APIs
+    Route::get('transactions', [PaymentController::class, 'getAllTransactions']);
     Route::get('user-transactions/{id}', [PaymentController::class, 'getUserPayment']);
     Route::get('property-transactions/{id}', [PaymentController::class, 'getPropertyPayment']);
-    Route::get('latest-transactions/{id}', [PaymentController::class, 'getLatestPayment']);
+    Route::get('latest-transaction/{id}', [PaymentController::class, 'getLatestPayment']);
+    Route::get('latest-transactions/{id}', [PaymentController::class, 'getAllLatestPayments']);
+    
     
 });
 

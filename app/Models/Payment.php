@@ -19,5 +19,6 @@ class Payment extends Model
         'date_of_payment',
         'tdId',
         'ownerId',
+        'name',
     ];
 }
