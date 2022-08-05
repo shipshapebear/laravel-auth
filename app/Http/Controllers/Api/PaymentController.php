@@ -35,4 +35,9 @@ class PaymentController extends Controller
         $latestPayment = Payment::where('ownerId', $id)->orderBy('date_of_payment', 'DESC')->first();
         return response()->json($latestPayment);
     }
+
+    public function checkout() {
+
+        
+    }
 }

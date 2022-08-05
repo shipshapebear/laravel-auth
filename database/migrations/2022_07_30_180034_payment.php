@@ -20,7 +20,9 @@ class Payment extends Migration
             $table->string('ownerId');
             $table->string('payment_for');
             $table->string('payment_method');
+            $table->string('payment_type');
             $table->string('payment_status');
+            $table->integer('quarters');
             $table->integer('amount');
             $table->date('date_of_payment');
             

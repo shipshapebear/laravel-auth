@@ -16,6 +16,8 @@ class Payment extends Model
         'payment_for',
         'payment_method',
         'payment_status',
+        'payment_type',
+        'quarters',
         'date_of_payment',
         'tdId',
         'ownerId',
